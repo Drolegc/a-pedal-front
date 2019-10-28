@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     {{msg}}
+    <p>Commit test from pc</p>
   </div>
 </template>
 
