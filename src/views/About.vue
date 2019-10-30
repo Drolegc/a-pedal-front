@@ -1,5 +1,28 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <sideBar></sideBar>
+    <GoogleMaps></GoogleMaps>
+    <!--
+    <login></login>
+    -->
   </div>
 </template>
+
+<script>
+import Login from '@/components/Login.vue';
+import GoogleMaps from '@/components/GoogleMaps.vue';
+import sideBar from '@/components/sideBar.vue';
+
+export default {
+  name:'about',
+  components:{
+    Login,
+    GoogleMaps,
+    sideBar,
+  },
+}
+</script>
+
+<style>
+
+</style>
