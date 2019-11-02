@@ -5,18 +5,15 @@
                 <!-- Tabs Titles -->
                 <h2 class="inactive underlineHover"> Sign In </h2>
                 <h2 class="active">Sign Up </h2>
-                <GoogleButton mensaje="Logueate rapido"></GoogleButton>
+                <GoogleButton mensaje="Registrate rapido"></GoogleButton>
                 <!-- Login Form -->
                 <form>
-                    <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario">
+                    <input type="text" id="usuario" class="fadeIn second" name="login" placeholder="Usuario">
                     <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
-                    <input type="submit" class="fadeIn fourth" value="Iniciar sesión">
+                    <input type="text" id="password_confirmation" class="fadeIn fourth" name="login" placeholder="Confirmacion">
+                    <input type="email" id="email" class="fadeIn five" name="login" placeholder="Email">
+                    <input type="submit" class="fadeIn six" value="Confirmar">
                 </form>
-
-                <!-- Remind Passowrd -->
-                <div id="formFooter">
-                    <a class="underlineHover" href="#">Forgot Password?</a>
-                </div>
 
             </div>
         </div>
@@ -35,7 +32,5 @@
 </script>
 
 <style>
-    .registro h1 {
-        color: violet;
-    }
+
 </style>
