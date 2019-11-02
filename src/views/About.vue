@@ -1,24 +1,19 @@
 <template>
   <div class="about">
-    <sideBar></sideBar>
+    <Header></Header>
     <GoogleMaps></GoogleMaps>
-    <!--
-    <login></login>
-    -->
   </div>
 </template>
 
 <script>
-import Login from '@/components/Login.vue';
 import GoogleMaps from '@/components/GoogleMaps.vue';
-import sideBar from '@/components/sideBar.vue';
+import Header from '@/components/header.vue';
 
 export default {
   name:'about',
   components:{
-    Login,
     GoogleMaps,
-    sideBar,
+    Header,
   },
 }
 </script>

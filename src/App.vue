@@ -5,6 +5,7 @@
 </template>
 
 <style>
+/*
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,8 +13,9 @@
   text-align: center;
   color: #ffffff;
 }
-
+*/
 ul {
   list-style-type: none;
 }
+
 </style>

@@ -1,37 +1,29 @@
 <template>
     <div class="sideBar">
         <div class="">
-            <a>
-                <div @click="open" class="hamburger" id="hamburger-9">
-
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <span class="line"></span>
-
+            <a class="toggler-navbar" @click="open">
+                <div class="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </a>
         </div>
 
-        <div class="collapse list-components" id="nav">
+        <div class="sidebar rounded">
             <ul>
-                <li>
-                    <div class="btn btn-light">
-                        <router-link to="/"><label class="options">Home</label></router-link>
-                    </div>
-                </li>
-                <li>
-                    <div class="btn btn-light">
-                        <router-link to="/about"><label class="options">About</label></router-link>
-                    </div>
-                </li>
+                <li class="shadow-sm active rounded"><a href="">Home</a></li>
+                <li class="shadow-sm rounded"><router-link to='/iniciar'>Login</router-link></li>
+                <li class="shadow-sm rounded"><a href="">About</a></li>
+                <li class="shadow-sm rounded"><a href="">Blog</a></li>
             </ul>
-
         </div>
 
     </div>
 </template>
 
 <script>
+    import Login from '@/components/Login.vue';
 
     export default {
         name: 'sideBar',
@@ -39,121 +31,127 @@
             action() {
                 console.log("Here!");
             },
-            open(obj) {
-                console.log(obj.target);
-                obj.target.classList.toggle('is-active');
+            open() {
+                document.getElementsByClassName("hamburger-menu")[0].classList.toggle('open');
+                document.getElementsByClassName("sidebar")[0].classList.toggle('open');
             }
-        }
+        },
+        components:{
+            Login,
+        },
     }
 
 </script>
 
 <style>
-    .sideBar {
-        position: absolute;
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        text-align: left;
+        font-size: 20px;
+        transform: rotate3d(0, 1, 0, 90deg);
+        transform-origin: left center;
+        transition: .5s;
     }
 
-    .sideBar div {
-        margin: 5%;
+    .sidebar.open {
+        transform: rotate3d(0, 0, 1, 0deg);
     }
 
-    .options {
-        padding: 1%;
+    .sidebar ul {
+        list-style: none;
     }
 
-    #nav {
+    .sidebar li:hover,
+    .sidebar li.active {
+        background: #0000003f;
+    }
+
+    .sidebar li a:hover,
+    .sidebar li.active a {
+        color:whitesmoke;
+    }
+
+    .sidebar li{
+        background: #FBFBFA;
+        margin-top:5%;
+    }
+
+    .sidebar ul{
+        padding:unset;
+    }
+
+    .sidebar li a {
+        color: #445261;
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block
+    }
+
+    .hamburger-menu {
+        width: 30px;
+        height: 30px;
         position: relative;
-        padding: 30px;
-    }
-
-    #nav a {
-        font-weight: bold;
-        color: #050505;
-    }
-
-    #nav a.router-link-exact-active {
-        color: #42b983;
-    }
-
-    /* Hamburgesa menu */
-
-    .hamburger {
-        position: relative;
-        padding: 10px;
-    }
-
-    .hamburger .line {
-        width: 40px;
-        height: 4px;
-        background-color: #ecf0f1;
-        display: block;
-        margin: 8px auto;
-        -webkit-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .hamburger:hover {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: .5s ease-in-out;
+        -moz-transition: .5s ease-in-out;
+        -o-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
         cursor: pointer;
     }
 
-    /* NINE */
-
-    #hamburger-9 {
-        position: relative;
-        padding: 2%;
-        -webkit-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-    }
-
-    #hamburger-9.is-active {
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-
-    #hamburger-9:before {
-        content: "";
+    .hamburger-menu span {
+        display: block;
         position: absolute;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 70px;
-        height: 70px;
-        border: 5px solid transparent;
-        top: calc(50% - 35px);
-        left: calc(50% - 35px);
-        border-radius: 100%;
-        -webkit-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
+        height: 3px;
+        width: 100%;
+        background: white;
+        border-radius: 9px;
+        opacity: 1;
+        left: 0;
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+        -webkit-transition: .25s ease-in-out;
+        -moz-transition: .25s ease-in-out;
+        -o-transition: .25s ease-in-out;
+        transition: .25s ease-in-out;
     }
 
-    #hamburger-9.is-active:before {
-        border: 5px solid #ecf0f1;
+    .hamburger-menu span:nth-child(1) {
+        top: 2.5px;
     }
 
-    #hamburger-9.is-active .line {
-        width: 35px;
+    .hamburger-menu span:nth-child(2) {
+        top: 11px;
     }
 
-    #hamburger-9.is-active .line:nth-child(2) {
+    .hamburger-menu span:nth-child(3) {
+        top: 21px;
+    }
+
+    .hamburger-menu.open span:nth-child(1) {
+        top: 15px;
+        -webkit-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        -o-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+
+    .hamburger-menu.open span:nth-child(2) {
         opacity: 0;
+        left: -60px;
     }
 
-    #hamburger-9.is-active .line:nth-child(1) {
-        -webkit-transform: translateY(13px);
-        -ms-transform: translateY(13px);
-        -o-transform: translateY(13px);
-        transform: translateY(13px);
-    }
-
-    #hamburger-9.is-active .line:nth-child(3) {
-        -webkit-transform: translateY(-13px) rotate(90deg);
-        -ms-transform: translateY(-13px) rotate(90deg);
-        -o-transform: translateY(-13px) rotate(90deg);
-        transform: translateY(-13px) rotate(90deg);
+    .hamburger-menu.open span:nth-child(3) {
+        top: 14px;
+        -webkit-transform: rotate(-135deg);
+        -moz-transform: rotate(-135deg);
+        -o-transform: rotate(-135deg);
+        transform: rotate(-135deg);
     }
 </style>
