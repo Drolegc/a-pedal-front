@@ -3,9 +3,9 @@
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <!-- Tabs Titles -->
-                <h2 class="active"> Sign In </h2>
-                <h2 class="inactive underlineHover">Sign Up </h2>
-                <GoogleButton mensaje="Logueate rapido"></GoogleButton>
+                <h2 class="active" > Sign In </h2>
+                <h2 class="inactive underlineHover" @click="registro" >Sign Up </h2>
+                <GoogleButton :mensaje="mensaje" :done="login"></GoogleButton>
                 <!-- Login Form -->
                 <form>
                     <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario">
@@ -27,13 +27,19 @@
     import GoogleButton from '@/components/GoogleButton.vue';
 
     export default {
+
         name: 'login',
+        data(){
+            return{
+                mensaje:"Google",
+            }
+        },
         methods: {
             onSuccess(obj) {
                 console.log(obj.getAuthResponse());
                 console.log(obj.getAuthResponse().id_token);
                 var usuario = obj.getBasicProfile()
-                console.log("TEsting login" + usuario.getName());
+                console.log("Testing login" + usuario.getName());
                 var email = usuario.getEmail();
                 var data = {
                     'email': email,
@@ -54,6 +60,13 @@
                 ).then(function (res) {
                     console.log(res);
                 });
+            },
+            login(obj){
+                console.log("Google Object: ");
+                console.log(obj);
+            },
+            registro(){
+                this.$store.dispatch('Change');
             }
         },
         components: {

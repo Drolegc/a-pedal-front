@@ -1,25 +1,36 @@
 <template>
     <div class="sesion">
         <div>
-            <Login v-if="mostrarLogin"></Login>
-            <Registro v-else></Registro>
+            <Login v-if="Loginstate" :Change="Change"></Login>
+            <Registro v-else :Change="Change"></Registro>
         </div>
     </div>
 </template>
 <script>
 import Login from '@/components/Login.vue';
 import Registro from '@/components/Registro.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name:'sesion',
     data(){
+
         return{
-            mostrarLogin: true,
         }
     },
     components:{
+
         Login,
         Registro,
+    },
+    methods:{
+
+    },
+    computed:{
+
+        ...mapGetters([
+            'Loginstate',
+        ]),
     },
 }
 </script>
@@ -99,7 +110,6 @@ h2.active {
 /* FORM TYPOGRAPHY*/
 
 input[type=button],
-input[type=email],
 input[type=submit],
 input[type=reset] {
     background-color: #56baed;
@@ -124,7 +134,6 @@ input[type=reset] {
 }
 
 input[type=button]:hover,
-input[type=email]:hover,
 input[type=submit]:hover,
 input[type=reset]:hover {
     background-color: #39ace7;
@@ -132,7 +141,6 @@ input[type=reset]:hover {
 
 input[type=button]:active,
 input[type=submit]:active,
-input[type=email]:active,
 input[type=reset]:active {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
