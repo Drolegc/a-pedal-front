@@ -7,11 +7,11 @@
                 <h2 class="active">Sign Up </h2>
                 <GoogleButton :mensaje="mensaje"></GoogleButton>
                 <!-- Login Form -->
-                <form>
-                    <input type="text" id="usuario" class="fadeIn second" name="login" placeholder="Usuario">
-                    <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
-                    <input type="text" id="password_confirmation" class="fadeIn fourth" name="login" placeholder="Confirmacion">
-                    <input type="email" id="email" class="fadeIn five" name="login" placeholder="Email">
+                <form @submit.prevent="onSubmit">
+                    <input v-model="usuario" type="text" id="usuario" class="fadeIn second" name="login" placeholder="Usuario">
+                    <input v-model="password" type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
+                    <input v-model="password_conf" type="password" id="password_confirmation" class="fadeIn fourth" name="login" placeholder="Confirmacion">
+                    <input v-model="email" type="email" id="email" class="fadeIn five" name="login" placeholder="Email">
                     <input type="submit" class="fadeIn six" value="Confirmar">
                 </form>
 
@@ -28,7 +28,11 @@
         name: 'registro',
         data(){
             return{
-                mensaje:"Google"
+                mensaje:"Google",
+                usuario:"",
+                password:"",
+                password_conf:"",
+                email:""
             }
         },
         components: {
@@ -39,6 +43,31 @@
             login(){
                 console.log("login function");
                 this.$store.dispatch('Change');
+            },
+            onSubmit(){
+                var url = 'http://localhost:8000/signup/';
+                var data = {
+                    username:this.usuario,
+                    password:this.password,
+                    password_conf:this.password_conf,
+                    email:this.email
+                }
+                var paquete = {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                fetch(url,paquete).then(res => res.json()
+                ).then(function(data){
+                    console.log(data)
+                }).catch(
+                    function(data){
+                        alert("Error");
+                    }
+                )
+
             }
         },
     }

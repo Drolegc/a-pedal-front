@@ -26,7 +26,7 @@
                     cookiepolicy: 'single_host_origin'
                 })
                 auth2.attachClickHandler(this.$refs.signinBtn, {}, googleUser => {
-                    this.$emit('done', googleUser)
+                    this.$emit('done', googleUser);
                 }, error => console.log(error))
             })
         },

@@ -5,11 +5,11 @@
                 <!-- Tabs Titles -->
                 <h2 class="active" > Sign In </h2>
                 <h2 class="inactive underlineHover" @click="registro" >Sign Up </h2>
-                <GoogleButton :mensaje="mensaje" :done="login"></GoogleButton>
+                <GoogleButton :mensaje="mensaje" @done="login"></GoogleButton>
                 <!-- Login Form -->
-                <form>
-                    <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario">
-                    <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
+                <form @submit.prevent="onSubmit">
+                    <input v-model="email" type="text" id="login" class="fadeIn second" name="login" placeholder="Email" required>
+                    <input v-model="password" type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña" required>
                     <input type="submit" class="fadeIn fourth" value="Iniciar sesión">
                 </form>
 
@@ -32,20 +32,19 @@
         data(){
             return{
                 mensaje:"Google",
+                email:"",
+                password:""
             }
         },
         methods: {
             onSuccess(obj) {
                 console.log(obj.getAuthResponse());
                 console.log(obj.getAuthResponse().id_token);
-                var usuario = obj.getBasicProfile()
                 console.log("Testing login" + usuario.getName());
-                var email = usuario.getEmail();
                 var data = {
-                    'email': email,
-                    'password': '********',
+                    'token_id':obj.getAuthResponse().id_token
                 }
-                var url = 'http://localhost:8000/login/';
+                var url = 'http://localhost:8000/authenticate_google/';
                 var paquete = {
                     method: 'POST',
                     body: JSON.stringify(data),
@@ -67,6 +66,35 @@
             },
             registro(){
                 this.$store.dispatch('Change');
+            },
+            onSubmit(){
+                this.$emit('submit');
+                var url = "http://localhost:8000/login/";
+                var data = {
+                    email:this.email,
+                    password:this.password
+                }
+                var paquete = {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+
+                var self = this
+
+                fetch(url,paquete).then(function(res){
+                    self.$emit('submit');
+                    return res.json();
+                }).then(function(data){
+                    console.log("Usuario logueado");
+                    localStorage.setItem("token",data['token']);
+                    self.$router.push('about');
+                }).catch(function(data){
+                    console.error(data);
+                    alert("Error");
+                })
             }
         },
         components: {

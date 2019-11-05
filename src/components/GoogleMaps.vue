@@ -9,6 +9,7 @@
     export default {
         nombre: 'googlemap',
         mounted() {
+            var self = this;
             function initMap() {
                 // The location of Uluru
                 var uluru = { lat: -34.9000015, lng: -54.9500008 };
@@ -21,8 +22,11 @@
                     });
                 // The marker, positioned at Uluru
                 var marker = new google.maps.Marker({ position: uluru, map: map });
+
+                self.$emit('mapaListo');
             };
             initMap();
+
         },
         data() {
             return {

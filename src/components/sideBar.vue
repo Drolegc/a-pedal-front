@@ -13,7 +13,16 @@
         <div class="sidebar rounded">
             <ul>
                 <li class="shadow-sm active rounded"><a href="">Home</a></li>
-                <li class="shadow-sm rounded"><router-link to='/iniciar'>Login</router-link></li>
+                <div v-if="logueado">
+                    <li class="shadow-sm rounded">
+                        <a href="" @click.prevent="cerrar_sesion">Cerrar</a>
+                    </li>
+                    <li class="shadow-sm rounded"><a href="">Nuevo plan</a></li>
+                    <li class="shadow-sm rounded"><a href="">Nuevo punto</a></li>
+                </div>
+                <li v-else>
+                    <router-link to='/iniciar'>Login</router-link>
+                </li>
                 <li class="shadow-sm rounded"><a href="">About</a></li>
                 <li class="shadow-sm rounded"><a href="">Blog</a></li>
             </ul>
@@ -27,16 +36,39 @@
 
     export default {
         name: 'sideBar',
+        data() {
+
+            return {
+                logueado: {
+
+                    type: Boolean
+                }
+            }
+        },
+        beforeMount() {
+
+            if (localStorage.getItem('token') != null) {
+                this.logueado = true;
+            } else {
+                this.logueado = false;
+            }
+        },
         methods: {
             action() {
                 console.log("Here!");
             },
             open() {
+
                 document.getElementsByClassName("hamburger-menu")[0].classList.toggle('open');
                 document.getElementsByClassName("sidebar")[0].classList.toggle('open');
+            },
+            cerrar_sesion() {
+
+                localStorage.removeItem('token');
+                this.$router.go();
             }
         },
-        components:{
+        components: {
             Login,
         },
     }
@@ -69,16 +101,16 @@
 
     .sidebar li a:hover,
     .sidebar li.active a {
-        color:whitesmoke;
+        color: whitesmoke;
     }
 
-    .sidebar li{
+    .sidebar li {
         background: #FBFBFA;
-        margin-top:5%;
+        margin-top: 5%;
     }
 
-    .sidebar ul{
-        padding:unset;
+    .sidebar ul {
+        padding: unset;
     }
 
     .sidebar li a {

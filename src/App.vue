@@ -14,6 +14,9 @@
   color: #ffffff;
 }
 */
+
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 ul {
   list-style-type: none;
 }
