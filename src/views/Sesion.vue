@@ -2,7 +2,7 @@
     <div class="sesion">
         <div>
             <loading v-show="cargando"></loading>
-            <Login submit="cargando" v-if="Loginstate"></Login>
+            <Login submit="Cargando" v-if="Loginstate"></Login>
             <Registro v-else></Registro>
         </div>
     </div>
@@ -30,7 +30,7 @@
         },
         methods: {
 
-            cargando(){
+            Cargando(){
 
                 this.cargando = !this.cargando;
             }

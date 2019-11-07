@@ -5,7 +5,7 @@
                 <!-- Tabs Titles -->
                 <h2 class="active" > Sign In </h2>
                 <h2 class="inactive underlineHover" @click="registro" >Sign Up </h2>
-                <GoogleButton :mensaje="mensaje" @done="login"></GoogleButton>
+                <GoogleButton :mensaje="mensaje" @done="onSuccess"></GoogleButton>
                 <!-- Login Form -->
                 <form @submit.prevent="onSubmit">
                     <input v-model="email" type="text" id="login" class="fadeIn second" name="login" placeholder="Email" required>
@@ -38,11 +38,8 @@
         },
         methods: {
             onSuccess(obj) {
-                console.log(obj.getAuthResponse());
-                console.log(obj.getAuthResponse().id_token);
-                console.log("Testing login" + usuario.getName());
                 var data = {
-                    'token_id':obj.getAuthResponse().id_token
+                    'token':obj['Zi']['id_token']
                 }
                 var url = 'http://localhost:8000/authenticate_google/';
                 var paquete = {
@@ -52,17 +49,22 @@
                         'Content-Type': 'application/json',
                     }
                 }
+
+                var self = this
+
                 fetch(url, paquete).then(
                     res => res.json()
-                ).catch(
-                    error => console.error('Error:', error)
                 ).then(function (res) {
-                    console.log(res);
-                });
+                    console.log("Logueo correcto");
+                    localStorage.setItem("token",data['token']);
+                    self.$router.push('about');
+                }).catch(
+                    error => console.error('Error:', error)
+                );
             },
             login(obj){
                 console.log("Google Object: ");
-                console.log(obj);
+                
             },
             registro(){
                 this.$store.dispatch('Change');

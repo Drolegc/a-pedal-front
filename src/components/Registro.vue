@@ -5,7 +5,7 @@
                 <!-- Tabs Titles -->
                 <h2 class="inactive underlineHover" @click="login"> Sign In </h2>
                 <h2 class="active">Sign Up </h2>
-                <GoogleButton :mensaje="mensaje"></GoogleButton>
+                <GoogleButton :mensaje="mensaje" @done="registro"></GoogleButton>
                 <!-- Login Form -->
                 <form @submit.prevent="onSubmit">
                     <input v-model="usuario" type="text" id="usuario" class="fadeIn second" name="login" placeholder="Usuario">
@@ -67,6 +67,35 @@
                         alert("Error");
                     }
                 )
+
+            },
+            registro(obj){
+                var id_token = obj['Zi']['id_token'];
+                var url = "http://localhost:8000/sign_up_google/";
+                var data = {
+                    'token':id_token
+                }
+                var paquete = {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+
+                var self = this
+
+                fetch(url,paquete).then(function(res){
+                    self.$emit('submit');
+                    return res.json();
+                }).then(function(data){
+                    console.log("Usuario registrado y logueado");
+                    localStorage.setItem("token",data['token']);
+                    self.$router.push('about');
+                }).catch(function(data){
+                    console.error(data);
+                    alert("Error");
+                })
 
             }
         },
