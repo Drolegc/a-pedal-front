@@ -8,20 +8,32 @@
 
     export default {
         nombre: 'googlemap',
+        props:['puntos'],
         mounted() {
             var self = this;
+            var puntos = JSON.parse(JSON.stringify(this.puntos));
+            console.log(puntos);
             function initMap() {
                 // The location of Uluru
-                var uluru = { lat: -34.9000015, lng: -54.9500008 };
+                var uluru = { lat: -34.960554, lng: -54.942406 };
                 // The map, centered at Uluru
                 var map = new google.maps.Map(
                     document.getElementById('map'), {
-                        zoom: 15,
+                        zoom: 14,
                         center: uluru,
-                        disableDefaultUI: true
+                        disableDefaultUI: true,
                     });
-                // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({ position: uluru, map: map });
+                 
+                //Agregar marcadores
+
+                console.log(puntos);
+                for(var punto of self.puntos){
+                    console.log('en puntos');
+                    var lat = punto['latitud'];
+                    var long = punto['longitud'];
+                    var coords = { lat: lat, lng: long};
+                    var marker = new google.maps.Marker({ position: coords, map:map });
+                };
 
                 self.$emit('mapaListo');
             };
