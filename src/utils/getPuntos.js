@@ -1,6 +1,6 @@
-export default function(){
+export default async function(){
     var url = 'http://localhost:8000/punto/';
-    var planes = fetch(url).then(
+    var planes = await fetch(url).then(
         (res) => res.json()
         ).then(function(res){
             return res;

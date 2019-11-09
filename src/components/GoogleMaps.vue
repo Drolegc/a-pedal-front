@@ -9,10 +9,13 @@
     export default {
         nombre: 'googlemap',
         props:['puntos'],
-        mounted() {
-            var self = this;
-            var puntos = this.puntos;
-            function initMap() {
+        watch: {
+            puntos(){
+                this.initMap(this);
+            }
+        },
+        methods:{
+            initMap(self) {
                 // The location of Uluru
                 var uluru = { lat: -34.960554, lng: -54.942406 };
                 // The map, centered at Uluru
@@ -24,7 +27,6 @@
                     });
                  
                 //Agregar marcadores
-
                 for(var punto of self.puntos){
                     console.log('en puntos');
                     var lat = punto['latitud'];
@@ -34,9 +36,7 @@
                 };
 
                 self.$emit('mapaListo');
-            };
-            initMap();
-
+            }
         },
         data() {
             return {

@@ -22,14 +22,14 @@ export default {
     }
   },
   created(){
+    
     var self = this;
     getPuntos().then(
       function(data){
-        
-        self.puntos = data;
-        console.log(data);
+        self.puntos = data['results'];
+        console.log(self.puntos);
       }
-    )
+    );
   },
   components:{
 
