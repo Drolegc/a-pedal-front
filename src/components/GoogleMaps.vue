@@ -11,8 +11,7 @@
         props:['puntos'],
         mounted() {
             var self = this;
-            var puntos = JSON.parse(JSON.stringify(this.puntos));
-            console.log(puntos);
+            var puntos = this.puntos;
             function initMap() {
                 // The location of Uluru
                 var uluru = { lat: -34.960554, lng: -54.942406 };
@@ -26,7 +25,6 @@
                  
                 //Agregar marcadores
 
-                console.log(puntos);
                 for(var punto of self.puntos){
                     console.log('en puntos');
                     var lat = punto['latitud'];
