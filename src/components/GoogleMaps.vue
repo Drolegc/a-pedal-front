@@ -28,7 +28,6 @@
                  
                 //Agregar marcadores
                 for(var punto of self.puntos){
-                    console.log('en puntos');
                     var lat = punto['latitud'];
                     var long = punto['longitud'];
                     var coords = { lat: lat, lng: long};
