@@ -1,6 +1,7 @@
 <template>
     <div class="planesManagment scroll" ref="planesScroll">
-        <plan v-for="plan in planes" :img="plan.imagen" :titulo="plan.titulo" :key="plan.id"></plan>
+        <plan v-for="plan in planes" @planDetails="planDetails" :img="plan.imagen" :titulo="plan.titulo" :key="plan.id">
+        </plan>
     </div>
 </template>
 
@@ -22,6 +23,13 @@
                 if (e.deltaY > 0) item.scrollLeft += 100;
                 else item.scrollLeft -= 100;
             });
+        },
+        methods: {
+
+            planDetails(obj) {
+
+                this.$emit("details",obj);
+            }
         }
     }
 </script>
@@ -43,7 +51,8 @@
     ::-webkit-scrollbar {
         display: unset;
     }
-/*
+
+    /*
     ::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         border-radius: 10px;
@@ -71,7 +80,7 @@
 
         /* width de los planes*/
 
-        .planesManagment .plan{
+        .planesManagment .plan {
             width: 70%;
         }
     }

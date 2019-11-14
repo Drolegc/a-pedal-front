@@ -1,5 +1,5 @@
 <template>
-    <div class="plan rounded">
+    <div class="plan rounded" @click="details">
         <div class="card">
             <div class="row">
                 <div class="col">
@@ -21,10 +21,22 @@
 export default {
     name:'plan',
     props:['img','titulo'],
+    methods: {
+
+        details(){
+
+            var key = this.$vnode.key;
+            this.$emit("planDetails",key);
+        }
+    }
 }
 
 </script>
 
 <style>
+
+.plan{
+    cursor: pointer;
+}
 
 </style>

@@ -1,9 +1,12 @@
 <template>
   <div class="about">
+    <!-- Modales -->
     <loading v-show="cargando"></loading>
+    <plan-details v-if="detailsModal.status" :plan="detailsModal.info"></plan-details>
+    <!-- /Modales -->
     <Header></Header>
     <GoogleMaps :puntos="puntos" @mapaListo="mapaListo"></GoogleMaps>
-    <planes-managment :planes="planes"></planes-managment>
+    <planes-managment :planes="planes" @details="planDetails"></planes-managment>
   </div>
 </template>
 
@@ -13,6 +16,7 @@ import GoogleMaps from '@/components/GoogleMaps.vue';
 import Header from '@/components/header.vue';
 import loading from '@/components/loading.vue';
 import planesManagment from '@/components/PlanesManagment.vue';
+import planDetails from '@/components/planDetails.vue';
 
 //Utils
 import getPuntos from '@/utils/getPuntos.js';
@@ -27,6 +31,10 @@ export default {
       cargando:true,
       puntos:[],
       planes:[],
+      detailsModal:{
+        status:false,
+        info:Object
+      },
     }
   },
   created(){
@@ -50,11 +58,21 @@ export default {
     GoogleMaps,
     Header,
     planesManagment,
+    planDetails,
   },
   methods:{
 
     mapaListo(){
       this.cargando = !this.cargando;
+    },
+    planDetails(key){
+      for(var plan of this.planes){
+        if(plan['id'] == key){
+          this.detailsModal['info'] = plan;
+          this.detailsModal['status'] = !this.detailsModal['status'];
+        }
+      }
+
     }
   }
 }
