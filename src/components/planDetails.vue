@@ -1,6 +1,13 @@
 <template>
     <div class="planDetails">
-        <punto-details v-for="punto in plan.puntos" :img="punto.imagen" :descripcion="punto.descripcion"></punto-details>
+        <punto-details 
+            :descripcion="punto.descripcion"
+            :lat="punto.latitud" 
+            :lng="punto.longitud" 
+            :index="index" 
+            @menosIndex="menosIndex" 
+            @masIndex="masIndex">
+        </punto-details>
     </div>
 </template>
 
@@ -11,10 +18,38 @@ export default {
 
     name:'planDetails',
     props:['plan'],
+    data(){
+
+        return {
+
+            index:0,
+            punto:Object,
+        }
+    },
+    created() {
+
+        this.punto = this.plan['puntos'][this.index];
+    },
+    watch:{
+
+        index(){
+
+            this.punto = this.plan['puntos'][this.index];
+        }
+    },
     components:{
 
         puntoDetails,
-    }
+    },
+    methods: {
+        
+        menosIndex(){
+            this.index--;
+        },
+        masIndex(){
+            this.index++;
+        }
+    },
 }
 </script>
 
@@ -27,5 +62,6 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 1;
+    padding:5%;
 }
 </style>
